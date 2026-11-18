@@ -1,0 +1,23 @@
+name: Build C++ menjadi EXE
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Ambil kode dari repositori
+        uses: actions/checkout@v4
+
+      - name: Compile main.cpp ke program.exe
+        run: g++ -static main.cpp -o program.exe
+
+      - name: Simpan file EXE sebagai Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aplikasi-Windows-EXE
+          path: program.exe
